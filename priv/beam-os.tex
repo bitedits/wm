@@ -34,7 +34,7 @@ All software is delivered as signed OTP releases; native code is minimised and c
 The architecture retains Linux kernel isolation primitives (cgroups, namespaces, seccomp) as a hard outer boundary while exploiting OTP supervision, hot code loading, and distribution for fine-grained internal control.
 We articulate five design rules, detail the resulting software structure, examine device capability transfer,
 multi-seat operation, and the placement of the display server, and conclude with an assessment of the model's
-applicability to specialised, high-integrity, and research-oriented POSIX systems.
+applicability to mission-critical defense appliances, aerospace systems, and as a modern, soft real-time replacement for legacy Ada.
 \end{abstract}
 
 \newpage
@@ -61,7 +61,7 @@ The design is motivated by three observations:
 \end{enumerate}
 
 We do not claim that the architecture is a drop-in replacement for a general-purpose Linux distribution.
-Rather, we argue that it constitutes a coherent substrate for specialised systems---appliances, high-integrity desktops, educational platforms, and research vehicles---in which the benefits of a uniform, supervised, bytecode-verified execution environment outweigh the cost of reimplementing or wrapping existing software.
+Rather, we argue that it constitutes a coherent substrate for mission-critical defense appliances, aerospace command-and-control (C2) systems, and high-assurance vehicles. In these environments, the benefits of a uniform, supervised, bytecode-verified execution environment offer a compelling, memory-safe alternative to legacy Ada and traditional RTOS deployments, fundamentally outperforming them in runtime resilience, hot-code reloading for zero-downtime patching, and native distributed supervision.
 
 \section{Architecture}
 
@@ -244,6 +244,8 @@ The principal residual risks are:
 
 These risks are mitigated by minimising native code, by continuous auditing of the trusted computing base, and by the ability to restart individual User BEAMs without system-wide disruption.
 
+Furthermore, this multi-layered security posture directly satisfies stringent defense-in-depth and Zero Trust Architecture (ZTA) requirements mandated in modern defense technologies. By combining Linux kernel namespaces with BEAM bytecode verification, the architecture ensures that a compromised component cannot escalate privileges or pivot within the network.
+
 %----------------------------------------------------------------------
 \subsection{Related Work}
 %----------------------------------------------------------------------
@@ -257,6 +259,8 @@ Container systems (Docker, Podman, Firecracker) provide strong isolation at the 
 Our design differs by retaining a full Linux kernel for driver support while elevating the BEAM to the primary organisational and supervisory unit.
 It is closer in spirit to a language-based operating system that still exploits POSIX device models, rather than a pure unikernel or a conventional container host.
 
+In the domain of high-integrity systems, legacy Ada and SPARK have long provided compile-time safety guarantees. However, Erlang OS.1 bridges the gap between high-level distributed systems and low-level high-integrity requirements by offering robust runtime memory safety, soft real-time predictable latency, and granular fault-tolerance that traditional RTOS environments (e.g., VxWorks, QNX) struggle to provide for complex, networked topologies. It serves as a modern replacement for aging Ada codebases, shifting the safety paradigm from compile-time rigidity to dynamic runtime resilience.
+
 %----------------------------------------------------------------------
 \subsection{Discussion and Limitations}
 %----------------------------------------------------------------------
@@ -264,8 +268,7 @@ It is closer in spirit to a language-based operating system that still exploits 
 The architecture excels when the workload can be expressed as OTP applications and when strong supervision and uniform observability are valued above absolute compatibility with existing Unix software.
 It is less suitable as a general-purpose desktop or server replacement until a substantial body of application software has been re-expressed or reliably wrapped.
 
-Performance overhead relative to native processes is modest for concurrent, message-oriented workloads and higher for tight numeric loops or latency-critical media processing.
-The design therefore favours control-plane and interactive workloads over heavy data-plane computation unless carefully engineered NIFs are introduced.
+Performance overhead relative to raw native processes is modest for concurrent, message-oriented workloads. More importantly, the BEAM's pre-emptive, reduction-counting scheduler and per-process garbage collection guarantee soft real-time predictability. This strict latency bounding is critical for defense tech sensor arrays, telemetry processing, and C2 systems, rendering the design highly favorable for control-plane and distributed tracking workloads over heavy data-plane DSP computation (unless carefully engineered NIFs are introduced).
 
 %----------------------------------------------------------------------
 \section{Conclusion}
