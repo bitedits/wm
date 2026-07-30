@@ -1,0 +1,14 @@
+{application, wm,
+ [{description, "CTWM-style Erlang Window Manager"},
+  {vsn, "0.1.0"},
+  {registered, [wm_sup, wm_x11, wm_event, wm_windows, wm_workspace, wm_config, wm_keybind]},
+  {mod, {wm_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.

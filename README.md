@@ -3,6 +3,7 @@ Sokhatsky WM
 
 Here’s a clearer, more concrete comparison of what Erlang implementations of these four
 window managers would actually look like, focused on the differences that matter when you share one C99 X11 Port.
+These managers I would like you to take into account!
 
 ## High-level comparison
 
