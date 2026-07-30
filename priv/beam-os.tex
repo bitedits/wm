@@ -27,7 +27,7 @@
 \maketitle
 
 \begin{abstract}
-We present the \textbf{Erlang OS} systems architecture that reinterprets the traditional POSIX process model through the lens of the Erlang/OTP virtual machine.
+We present the \textbf{Erlang OS.1} systems architecture that reinterprets the traditional POSIX process model through the lens of the Erlang/OTP virtual machine.
 Built on a minimal Alpine Linux base, the design elevates the BEAM to the primary unit of isolation, lifecycle management, and privilege separation.
 A privileged System BEAM owns all direct kernel interactions, while one or more unprivileged User BEAMs host graphical sessions (including the X11 server), window managers, and application workloads.
 All software is delivered as signed OTP releases; native code is minimised and confined.
